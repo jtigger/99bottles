@@ -1,25 +1,51 @@
 class Bottles
-  def verse(num_bottles)
-    case num_bottles
-    when 0
-      first_line = "No more bottles of beer on the wall, no more bottles of beer.\n"
-      second_line = "Go to the store and buy some more, 99 bottles of beer on the wall.\n"
-    when 1
-      first_line = "#{num_bottles} bottle of beer on the wall, #{num_bottles} bottle of beer.\n"
-      second_line = "Take it down and pass it around, #{(num_bottles-1 > 0) ? (num_bottles-1) : "no more"} bottles of beer on the wall.\n"
-    when 2
-      first_line = "#{num_bottles} bottles of beer on the wall, #{num_bottles} bottles of beer.\n"
-      second_line = "Take one down and pass it around, #{(num_bottles-1)} bottle of beer on the wall.\n"
-    else
-      first_line = "#{num_bottles} bottles of beer on the wall, #{num_bottles} bottles of beer.\n"
-      second_line = "Take one down and pass it around, #{(num_bottles-1)} bottle#{(num_bottles-1) == 1 ? '' : 's'} of beer on the wall.\n"
-    end
-
-    first_line + second_line
+  def verse(drinks)
+    "#{quantity(drinks).capitalize} #{beverages(drinks)} on the wall, #{quantity(drinks)} #{beverages(drinks)}.\n" +
+    "#{take_action(drinks)}, #{quantity(one_fewer(drinks))} #{beverages(one_fewer(drinks))} on the wall.\n"
   end
 
-  def verses(num_bottles_to_start, num_bottles_to_stop)
-    num_bottles_to_start.downto(num_bottles_to_stop).map { |num_bottles| verse(num_bottles) }.join("\n")
+  def quantity(drinks)
+    if drinks == 0
+      "no more"
+    else
+      drinks.to_s
+    end
+  end
+
+  def beverages(drinks)
+    if drinks == 1
+      "bottle of beer"
+    else
+      "bottles of beer"
+    end
+  end
+
+  def take_action(drinks)
+    if drinks == 0
+      "Go to the store and buy some more"
+    else
+      "Take #{pronoun(drinks)} down and pass it around"
+    end
+  end
+
+  def pronoun(drinks)
+    if drinks == 1
+      "it"
+    else
+      "one"
+    end
+  end
+
+  def one_fewer(drinks)
+    if drinks == 0
+      99
+    else
+      drinks-1
+    end
+  end
+
+  def verses(drinks_to_start, drinks_to_stop)
+    drinks_to_start.downto(drinks_to_stop).map { |drinks| verse(drinks) }.join("\n")
   end
 
   def song
