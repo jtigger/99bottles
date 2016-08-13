@@ -21,16 +21,7 @@ class Bottles
   end
 
   def verses(num_bottles_to_start, num_bottles_to_stop)
-    result = ""
-    num_bottles = num_bottles_to_start
-    while num_bottles >= num_bottles_to_stop
-      result += verse(num_bottles)
-      num_bottles = num_bottles - 1
-      if num_bottles >= num_bottles_to_stop
-        result += "\n"
-      end
-    end
-    result
+    num_bottles_to_start.downto(num_bottles_to_stop).map { |num_bottles| verse(num_bottles) }.join("\n")
   end
 
   def song
