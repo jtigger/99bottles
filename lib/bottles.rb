@@ -1,20 +1,18 @@
 class Bottles
   def verse(num_bottles)
-    first_suffix = (num_bottles) == 1 ? '' : 's'
-    second_suffix = (num_bottles-1) == 1 ? '' : 's'
-
-    adjective = (num_bottles > 1) ? "one" : "it"
-
-    num_bottles_before = (num_bottles > 0) ? (num_bottles) : "no more"
-    num_bottles_after = (num_bottles-1 > 0) ? (num_bottles-1) : "no more"
-
-    num_bottles_before_first = (num_bottles > 0) ? (num_bottles) : "No more"
-
-    first_line = "#{num_bottles_before_first} bottle#{first_suffix} of beer on the wall, #{num_bottles_before} bottle#{first_suffix} of beer.\n"
-    second_line = "Take #{adjective} down and pass it around, #{num_bottles_after} bottle#{second_suffix} of beer on the wall.\n"
-
-    if num_bottles == 0
+    case num_bottles
+    when 0
+      first_line = "No more bottles of beer on the wall, no more bottles of beer.\n"
       second_line = "Go to the store and buy some more, 99 bottles of beer on the wall.\n"
+    when 1
+      first_line = "#{num_bottles} bottle of beer on the wall, #{num_bottles} bottle of beer.\n"
+      second_line = "Take it down and pass it around, #{(num_bottles-1 > 0) ? (num_bottles-1) : "no more"} bottles of beer on the wall.\n"
+    when 2
+      first_line = "#{num_bottles} bottles of beer on the wall, #{num_bottles} bottles of beer.\n"
+      second_line = "Take one down and pass it around, #{(num_bottles-1)} bottle of beer on the wall.\n"
+    else
+      first_line = "#{num_bottles} bottles of beer on the wall, #{num_bottles} bottles of beer.\n"
+      second_line = "Take one down and pass it around, #{(num_bottles-1)} bottle#{(num_bottles-1) == 1 ? '' : 's'} of beer on the wall.\n"
     end
 
     first_line + second_line
