@@ -36,8 +36,9 @@ class Stash
   end
 
   def how_much_left
-    if fits_in_six_packs(@drinks)
-      "#{six_pack_quantity} #{six_pack_container} of beer"
+    sixpack = SixPacks.new(@drinks)
+    if SixPacks.fits_in_six_packs(@drinks)
+      "#{sixpack.quantity} #{sixpack.container} of beer"
     else
       "#{bottle_quantity} #{bottle_container} of beer"
     end
@@ -59,15 +60,29 @@ class Stash
     end
   end
 
-  def six_pack_quantity
-    num_six_packs(@drinks).to_s
-  end
+  class SixPacks
+    def initialize(drinks)
+      @drinks = drinks
+    end
 
-  def six_pack_container
-    if num_six_packs(@drinks) == 1
-      "six-pack"
-    else
-      "six-packs"
+    def quantity
+      num_six_packs(@drinks).to_s
+    end
+
+    def container
+      if num_six_packs(@drinks) == 1
+        "six-pack"
+      else
+        "six-packs"
+      end
+    end
+
+    def self.fits_in_six_packs(drinks)
+      (drinks != 0 && drinks % 6 == 0)
+    end
+
+    def num_six_packs(drinks)
+      drinks / 6
     end
   end
 
@@ -81,15 +96,6 @@ class Stash
 
   def drinks
     @drinks
-  end
-
-  private
-  def fits_in_six_packs(drinks)
-    (drinks != 0 && drinks % 6 == 0)
-  end
-
-  def num_six_packs(drinks)
-    drinks / 6
   end
 end
 
