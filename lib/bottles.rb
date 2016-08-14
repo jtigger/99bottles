@@ -43,51 +43,27 @@ class Stash
     case @drinks
     when 0
       "no more"
-    when 6
-      "1"
-    when 12
-      "2"
-    when 18
-      "3"
-    when 24
-      "4"
-    when 30
-      "5"
-    when 36
-      "6"
-    when 42
-      "7"
-    when 48
-      "8"
-    when 54
-      "9"
-    when 60
-      "10"
-    when 66
-      "11"
-    when 72
-      "12"
-    when 78
-      "13"
-    when 84
-      "14"
-    when 90
-      "15"
-    when 96
-      "16"
     else
-      @drinks.to_s
+      if @drinks % 6 == 0
+        (@drinks / 6).to_s
+      else
+        @drinks.to_s
+      end
     end
   end
 
   def container
     case @drinks
+    when 0
+      "bottles of beer"
     when 1
       "bottle of beer"
-    when 6, 12, 18, 24, 30, 36, 42, 48, 54, 60, 66, 72, 78, 84, 90, 96
-      "six-pack of beer"
     else
-      "bottles of beer"
+      if @drinks % 6 == 0
+        "six-pack of beer"
+      else
+        "bottles of beer"
+      end
     end
   end
 
