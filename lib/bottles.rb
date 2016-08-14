@@ -30,14 +30,13 @@ class Bottles
 end
 
 class Stash
-
   def initialize(drinks)
     @drinks = drinks
     @container = CONTAINER_TYPES.find { |c| c.fits_exactly?(@drinks) }.new(@drinks)
   end
 
   def how_much_left
-    "#{quantity(@container)} #{name(@container)} of beer"
+    "#{quantity} #{name} of beer"
   end
 
   def one_fewer
@@ -53,12 +52,12 @@ class Stash
   end
 
   private
-  def quantity(container)
-    container.quantity == 0 ? 'no more' : container.quantity.to_s
+  def quantity
+    @container.quantity == 0 ? 'no more' : @container.quantity.to_s
   end
 
-  def name(container)
-    container.quantity == 1 ? container.name : container.name + 's'
+  def name
+    @container.quantity == 1 ? @container.name : @container.name + 's'
   end
 
   class Bottles
