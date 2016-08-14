@@ -30,14 +30,14 @@ class Bottles
 end
 
 class Stash
+
   def initialize(drinks)
     @drinks = drinks
+    @container = CONTAINER_TYPES.find { |c| c.fits_exactly?(@drinks) }.new(@drinks)
   end
 
   def how_much_left
-    container_types = [SixPacks, Bottles]
-    container = container_types.find { |c| c.fits_exactly?(@drinks) }.new(@drinks)
-    "#{quantity(container)} #{name(container)} of beer"
+    "#{quantity(@container)} #{name(@container)} of beer"
   end
 
   def one_fewer
@@ -102,5 +102,7 @@ class Stash
       drinks / 6
     end
   end
+
+  CONTAINER_TYPES = [SixPacks, Bottles]
 end
 
