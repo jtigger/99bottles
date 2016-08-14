@@ -29,19 +29,15 @@ class Bottles
   end
 end
 
-
 class Stash
   def initialize(drinks)
     @drinks = drinks
   end
 
   def how_much_left
-    if SixPacks.can_hold(@drinks)
-      container = SixPacks.new(@drinks)
-    else
-      container = Bottles.new(@drinks)
-    end
-      "#{container.quantity} #{container.name} of beer"
+    container_types = [SixPacks, Bottles]
+    container = container_types.find { |c| c.fits_exactly?(@drinks) }.new(@drinks)
+    "#{container.quantity} #{container.name} of beer"
   end
 
   def one_fewer
@@ -57,6 +53,10 @@ class Stash
   end
 
   class Bottles
+    def self.fits_exactly?(drinks)
+      true
+    end
+
     def initialize(drinks)
       @drinks = drinks
     end
@@ -79,7 +79,7 @@ class Stash
   end
 
   class SixPacks
-    def self.can_hold(drinks)
+    def self.fits_exactly?(drinks)
       (drinks != 0 && drinks % 6 == 0)
     end
 
