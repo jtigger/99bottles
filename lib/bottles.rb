@@ -36,25 +36,26 @@ class Stash
   end
 
   def how_much_left
-    case @drinks
-    when 6
-      "1 six-pack of beer"
-    else
-      "#{quantity} #{container}"
-    end
+    "#{quantity} #{container}"
   end
 
   def quantity
-    if @drinks == 0
+    case @drinks
+    when 0
       "no more"
+    when 6
+      "1"
     else
       @drinks.to_s
     end
   end
 
   def container
-    if @drinks == 1
+    case @drinks
+    when 1
       "bottle of beer"
+    when 6
+      "six-pack of beer"
     else
       "bottles of beer"
     end
