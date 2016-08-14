@@ -29,7 +29,6 @@ class Bottles
   end
 end
 
-
 class Stash
   def initialize(drinks)
     @drinks = drinks
@@ -40,12 +39,11 @@ class Stash
   end
 
   def quantity
-    case @drinks
-    when 0
-      "no more"
+    if fits_in_six_pack(@drinks)
+      (@drinks / 6).to_s
     else
-      if @drinks % 6 == 0
-        (@drinks / 6).to_s
+      if @drinks == 0
+        "no more"
       else
         @drinks.to_s
       end
@@ -53,14 +51,11 @@ class Stash
   end
 
   def container
-    case @drinks
-    when 0
-      "bottles of beer"
-    when 1
-      "bottle of beer"
+    if fits_in_six_pack(@drinks)
+      "six-pack of beer"
     else
-      if @drinks % 6 == 0
-        "six-pack of beer"
+      if @drinks == 1
+        "bottle of beer"
       else
         "bottles of beer"
       end
@@ -77,6 +72,12 @@ class Stash
 
   def drinks
     @drinks
+  end
+
+  private
+
+  def fits_in_six_pack(drinks)
+    drinks != 0 && (drinks % 6 == 0)
   end
 end
 
