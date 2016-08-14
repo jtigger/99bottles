@@ -37,7 +37,7 @@ class Stash
   def how_much_left
     container_types = [SixPacks, Bottles]
     container = container_types.find { |c| c.fits_exactly?(@drinks) }.new(@drinks)
-    "#{container.quantity} #{container.name} of beer"
+    "#{quantity(container)} #{name(container)} of beer"
   end
 
   def one_fewer
@@ -52,6 +52,15 @@ class Stash
     @drinks
   end
 
+  private
+  def quantity(container)
+    container.quantity == 0 ? 'no more' : container.quantity.to_s
+  end
+
+  def name(container)
+    container.quantity == 1 ? container.name : container.name + 's'
+  end
+
   class Bottles
     def self.fits_exactly?(drinks)
       true
@@ -62,19 +71,11 @@ class Stash
     end
 
     def quantity
-      if @drinks == 0
-        "no more"
-      else
-        @drinks.to_s
-      end
+      @drinks
     end
 
     def name
-      if @drinks == 1
-        "bottle"
-      else
-        "bottles"
-      end
+      "bottle"
     end
   end
 
@@ -88,16 +89,14 @@ class Stash
     end
 
     def quantity
-      num_six_packs(@drinks).to_s
+      num_six_packs(@drinks)
     end
 
     def name
-      if num_six_packs(@drinks) == 1
-        "six-pack"
-      else
-        "six-packs"
-      end
+      "six-pack"
     end
+
+    private
 
     def num_six_packs(drinks)
       drinks / 6
