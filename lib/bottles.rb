@@ -36,9 +36,12 @@ class Stash
   end
 
   def how_much_left
-    case @drinks
-    when 6
-      "1 six-pack of beer"
+    if fits_in_six_packs(@drinks)
+      if @drinks / 6 == 1
+        "#{@drinks / 6} six-pack of beer"
+      else
+        "#{@drinks / 6} six-packs of beer"
+      end
     else
       "#{quantity} #{container}"
     end
@@ -70,6 +73,11 @@ class Stash
 
   def drinks
     @drinks
+  end
+
+  private
+  def fits_in_six_packs(drinks)
+    (drinks != 0 && drinks % 6 == 0)
   end
 end
 
