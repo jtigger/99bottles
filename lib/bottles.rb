@@ -44,6 +44,18 @@ class Stash
       "#{container.quantity} #{container.name} of beer"
   end
 
+  def one_fewer
+    if @drinks == 0
+      Stash.new(99)
+    else
+      Stash.new(@drinks-1)
+    end
+  end
+
+  def drinks
+    @drinks
+  end
+
   class Bottles
     def initialize(drinks)
       @drinks = drinks
@@ -90,18 +102,6 @@ class Stash
     def num_six_packs(drinks)
       drinks / 6
     end
-  end
-
-  def one_fewer
-    if @drinks == 0
-      Stash.new(99)
-    else
-      Stash.new(@drinks-1)
-    end
-  end
-
-  def drinks
-    @drinks
   end
 end
 
