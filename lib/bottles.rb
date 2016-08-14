@@ -1,7 +1,7 @@
 class Bottles
   def verse(stash)
-    "#{stash.how_much_left.capitalize} on the wall, #{stash.how_much_left}.\n" +
-    "#{take_action(stash.drinks)}, #{stash.one_fewer.how_much_left} on the wall.\n"
+    "#{stash.how_much_left.capitalize} of beer on the wall, #{stash.how_much_left} of beer.\n" +
+    "#{take_action(stash.drinks)}, #{stash.one_fewer.how_much_left} of beer on the wall.\n"
   end
 
   def take_action(drinks)
@@ -36,7 +36,7 @@ class Stash
   end
 
   def how_much_left
-    "#{quantity} #{name} of beer"
+    "#{quantity} #{name}"
   end
 
   def one_fewer
