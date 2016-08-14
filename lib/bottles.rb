@@ -1,23 +1,7 @@
 class Bottles
-  def verse(drinks)
-    "#{quantity(drinks).capitalize} #{beverages(drinks)} on the wall, #{quantity(drinks)} #{beverages(drinks)}.\n" +
-    "#{take_action(drinks)}, #{quantity(one_fewer(drinks))} #{beverages(one_fewer(drinks))} on the wall.\n"
-  end
-
-  def quantity(drinks)
-    if drinks == 0
-      "no more"
-    else
-      drinks.to_s
-    end
-  end
-
-  def beverages(drinks)
-    if drinks == 1
-      "bottle of beer"
-    else
-      "bottles of beer"
-    end
+  def verse(stash)
+    "#{stash.how_much_left.capitalize} on the wall, #{stash.how_much_left}.\n" +
+    "#{take_action(stash.drinks)}, #{stash.one_fewer.how_much_left} on the wall.\n"
   end
 
   def take_action(drinks)
@@ -36,19 +20,56 @@ class Bottles
     end
   end
 
-  def one_fewer(drinks)
-    if drinks == 0
-      99
-    else
-      drinks-1
-    end
-  end
-
   def verses(drinks_to_start, drinks_to_stop)
-    drinks_to_start.downto(drinks_to_stop).map { |drinks| verse(drinks) }.join("\n")
+    drinks_to_start.downto(drinks_to_stop).map { |drinks| verse(Stash.new(drinks))}.join("\n")
   end
 
   def song
     verses(99, 0)
   end
 end
+
+
+class Stash
+  def initialize(drinks)
+    @drinks = drinks
+  end
+
+  def how_much_left
+    case @drinks
+    when 6
+      "1 six-pack of beer"
+    else
+      "#{quantity} #{container}"
+    end
+  end
+
+  def quantity
+    if @drinks == 0
+      "no more"
+    else
+      @drinks.to_s
+    end
+  end
+
+  def container
+    if @drinks == 1
+      "bottle of beer"
+    else
+      "bottles of beer"
+    end
+  end
+
+  def one_fewer
+    if @drinks == 0
+      Stash.new(99)
+    else
+      Stash.new(@drinks-1)
+    end
+  end
+
+  def drinks
+    @drinks
+  end
+end
+
