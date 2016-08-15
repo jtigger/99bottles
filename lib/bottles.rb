@@ -1,24 +1,41 @@
 class Bottles
   def verse(drinks)
-    container = Bottle.new(drinks)
-    "#{container.quantity.capitalize} #{container.name} of beer on the wall, #{container.quantity} #{container.name} of beer.\n" +
-    "#{action(drinks)}, #{container.one_fewer.quantity} #{container.one_fewer.name} of beer on the wall.\n"
-  end
-
-  def action(drinks)
-    if drinks == 0
-      "Go to the store and buy some more"
+    case drinks
+    when 6
+      container = SixPack.new(drinks)
+      "#{container.quantity.capitalize} #{container.name} of beer on the wall, #{container.quantity} #{container.name} of beer.\n" +
+      "#{container.action}, 5 bottles of beer on the wall.\n"
+    when 7
+      "7 bottles of beer on the wall, 7 bottles of beer.\n" +
+      "Take a bottle down and pass it around, 1 six-pack of beer on the wall.\n"
     else
-      "Take #{pronoun(drinks)} down and pass it around"
+      container = Bottle.new(drinks)
+      "#{container.quantity.capitalize} #{container.name} of beer on the wall, #{container.quantity} #{container.name} of beer.\n" +
+      "#{container.action}, #{container.one_fewer.quantity} #{container.one_fewer.name} of beer on the wall.\n"
     end
   end
 
-  def pronoun(drinks)
-    if drinks == 1
-      "it"
-    else
-      "one"
+  class SixPack
+    def initialize(drinks)
+      @sixpacks = drinks / 6
     end
+
+    def quantity
+      @sixpacks.to_s
+    end
+
+    def name
+      if @sixpacks == 1
+        "six-pack"
+      else
+        "six-packs"
+      end
+    end
+
+    def action
+      "Take a bottle down and pass it around"
+    end
+
   end
 
   class Bottle
@@ -42,6 +59,14 @@ class Bottles
       end
     end
 
+    def action
+      if @drinks == 0
+        "Go to the store and buy some more"
+      else
+        "Take #{pronoun(@drinks)} down and pass it around"
+      end
+    end
+
     def one_fewer
       if @drinks == 0
         Bottle.new(99)
@@ -49,6 +74,17 @@ class Bottles
         Bottle.new(@drinks - 1)
       end
     end
+
+    private
+
+    def pronoun(drinks)
+      if drinks == 1
+        "it"
+      else
+        "one"
+      end
+    end
+
   end
 
 
