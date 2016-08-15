@@ -1,22 +1,21 @@
 class Bottles
   def verse(drinks)
-    case drinks
-    when 6
-      container = SixPack.new(drinks)
-      "#{container.quantity.capitalize} #{container.name} of beer on the wall, #{container.quantity} #{container.name} of beer.\n" +
-      "#{container.action}, 5 bottles of beer on the wall.\n"
-    when 7
-      "7 bottles of beer on the wall, 7 bottles of beer.\n" +
-      "Take a bottle down and pass it around, 1 six-pack of beer on the wall.\n"
+    container = Bottles.container_for(drinks)
+    "#{container.quantity.capitalize} #{container.name} of beer on the wall, #{container.quantity} #{container.name} of beer.\n" +
+    "#{container.action}, #{container.one_fewer.quantity} #{container.one_fewer.name} of beer on the wall.\n"
+  end
+
+  def self.container_for(drinks)
+    if drinks % 6 == 0 && drinks != 0
+      SixPack.new(drinks)
     else
-      container = Bottle.new(drinks)
-      "#{container.quantity.capitalize} #{container.name} of beer on the wall, #{container.quantity} #{container.name} of beer.\n" +
-      "#{container.action}, #{container.one_fewer.quantity} #{container.one_fewer.name} of beer on the wall.\n"
+      Bottle.new(drinks)
     end
   end
 
   class SixPack
     def initialize(drinks)
+      @drinks = drinks
       @sixpacks = drinks / 6
     end
 
@@ -36,6 +35,13 @@ class Bottles
       "Take a bottle down and pass it around"
     end
 
+    def one_fewer
+      if @drinks == 0
+        Bottles.container_for(99)
+      else
+        Bottles.container_for(@drinks - 1)
+      end
+    end
   end
 
   class Bottle
@@ -69,9 +75,9 @@ class Bottles
 
     def one_fewer
       if @drinks == 0
-        Bottle.new(99)
+        Bottles.container_for(99)
       else
-        Bottle.new(@drinks - 1)
+        Bottles.container_for(@drinks - 1)
       end
     end
 

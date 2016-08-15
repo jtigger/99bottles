@@ -22,7 +22,7 @@ VERSE
   def test_verse_7
     expected = <<-VERSE
 7 bottles of beer on the wall, 7 bottles of beer.
-Take a bottle down and pass it around, 1 six-pack of beer on the wall.
+Take one down and pass it around, 1 six-pack of beer on the wall.
     VERSE
     assert_equal expected, ::Bottles.new.verse(7)
   end
@@ -85,7 +85,6 @@ VERSES
   end
 
   def test_the_whole_song
-    skip
     expected = <<-SONG
 99 bottles of beer on the wall, 99 bottles of beer.
 Take one down and pass it around, 98 bottles of beer on the wall.
@@ -97,7 +96,7 @@ Take one down and pass it around, 97 bottles of beer on the wall.
 Take one down and pass it around, 16 six-packs of beer on the wall.
 
 16 six-packs of beer on the wall, 16 six-packs of beer.
-Take one down and pass it around, 95 bottles of beer on the wall.
+Take a bottle down and pass it around, 95 bottles of beer on the wall.
 
 95 bottles of beer on the wall, 95 bottles of beer.
 Take one down and pass it around, 94 bottles of beer on the wall.
