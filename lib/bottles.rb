@@ -7,13 +7,18 @@ class Bottles
       "Go to the store and buy some more, #{container.one_fewer.quantity} #{container.one_fewer.name} of beer on the wall.\n"
     when 1
       "#{container.quantity.capitalize} #{container.name} of beer on the wall, #{container.quantity} #{container.name} of beer.\n" +
-      "Take it down and pass it around, #{container.one_fewer.quantity} #{container.one_fewer.name} of beer on the wall.\n"
-    when 2
-      "#{container.quantity.capitalize} #{container.name} of beer on the wall, #{container.quantity} #{container.name} of beer.\n" +
-      "Take one down and pass it around, #{container.one_fewer.quantity} #{container.one_fewer.name} of beer on the wall.\n"
+      "Take #{pronoun(drinks)} down and pass it around, #{container.one_fewer.quantity} #{container.one_fewer.name} of beer on the wall.\n"
     else
       "#{container.quantity.capitalize} #{container.name} of beer on the wall, #{container.quantity} #{container.name} of beer.\n" +
-      "Take one down and pass it around, #{container.one_fewer.quantity} #{container.one_fewer.name} of beer on the wall.\n"
+      "Take #{pronoun(drinks)} down and pass it around, #{container.one_fewer.quantity} #{container.one_fewer.name} of beer on the wall.\n"
+    end
+  end
+
+  def pronoun(drinks)
+    if drinks == 1
+      "it"
+    else
+      "one"
     end
   end
 
