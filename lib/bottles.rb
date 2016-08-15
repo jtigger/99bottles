@@ -1,16 +1,15 @@
 class Bottles
   def verse(drinks)
     container = Bottle.new(drinks)
-    case drinks
-    when 0
-      "#{container.quantity.capitalize} #{container.name} of beer on the wall, #{container.quantity} #{container.name} of beer.\n" +
-      "Go to the store and buy some more, #{container.one_fewer.quantity} #{container.one_fewer.name} of beer on the wall.\n"
-    when 1
-      "#{container.quantity.capitalize} #{container.name} of beer on the wall, #{container.quantity} #{container.name} of beer.\n" +
-      "Take #{pronoun(drinks)} down and pass it around, #{container.one_fewer.quantity} #{container.one_fewer.name} of beer on the wall.\n"
+    "#{container.quantity.capitalize} #{container.name} of beer on the wall, #{container.quantity} #{container.name} of beer.\n" +
+    "#{action(drinks)}, #{container.one_fewer.quantity} #{container.one_fewer.name} of beer on the wall.\n"
+  end
+
+  def action(drinks)
+    if drinks == 0
+      "Go to the store and buy some more"
     else
-      "#{container.quantity.capitalize} #{container.name} of beer on the wall, #{container.quantity} #{container.name} of beer.\n" +
-      "Take #{pronoun(drinks)} down and pass it around, #{container.one_fewer.quantity} #{container.one_fewer.name} of beer on the wall.\n"
+      "Take #{pronoun(drinks)} down and pass it around"
     end
   end
 
