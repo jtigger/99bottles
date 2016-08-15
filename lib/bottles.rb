@@ -2,17 +2,17 @@ class Bottles
   def verse(drinks)
     case drinks
     when 0
-      "#{quantity(drinks).capitalize} bottles of beer on the wall, #{quantity(drinks)} bottles of beer.\n" +
-      "Go to the store and buy some more, 99 bottles of beer on the wall.\n"
+      "#{quantity(drinks).capitalize} #{name(drinks)} of beer on the wall, #{quantity(drinks)} #{name(drinks)} of beer.\n" +
+      "Go to the store and buy some more, 99 #{name(drinks-1)} of beer on the wall.\n"
     when 1
-      "#{quantity(drinks)} bottle of beer on the wall, #{quantity(drinks)} bottle of beer.\n" +
-      "Take it down and pass it around, #{quantity(drinks-1)} bottles of beer on the wall.\n"
+      "#{quantity(drinks)} #{name(drinks)} of beer on the wall, #{quantity(drinks)} #{name(drinks)} of beer.\n" +
+      "Take it down and pass it around, #{quantity(drinks-1)} #{name(drinks-1)} of beer on the wall.\n"
     when 2
-      "#{quantity(drinks)} bottles of beer on the wall, #{quantity(drinks)} bottles of beer.\n" +
-      "Take one down and pass it around, #{quantity(drinks-1)} bottle of beer on the wall.\n"
+      "#{quantity(drinks)} #{name(drinks)} of beer on the wall, #{quantity(drinks)} #{name(drinks)} of beer.\n" +
+      "Take one down and pass it around, #{quantity(drinks-1)} #{name(drinks-1)} of beer on the wall.\n"
     else
-      "#{quantity(drinks)} bottles of beer on the wall, #{quantity(drinks)} bottles of beer.\n" +
-      "Take one down and pass it around, #{quantity(drinks-1)} bottles of beer on the wall.\n"
+      "#{quantity(drinks)} #{name(drinks)} of beer on the wall, #{quantity(drinks)} #{name(drinks)} of beer.\n" +
+      "Take one down and pass it around, #{quantity(drinks-1)} #{name(drinks-1)} of beer on the wall.\n"
     end
   end
 
@@ -21,6 +21,14 @@ class Bottles
       "no more"
     else
       drinks.to_s
+    end
+  end
+
+  def name(drinks)
+    if drinks == 1
+      "bottle"
+    else
+      "bottles"
     end
   end
 
